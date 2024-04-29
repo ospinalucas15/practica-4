@@ -15,19 +15,23 @@ class CuentaCorriente{
 
     public:
         CuentaCorriente();
-        CuentaCorriente(string nom, string apll, string dir, string tel, double sald);
+        CuentaCorriente(string nom, string apll, string dir, string tel, int ced, int clv , double sald);
 
         void setName(string _nombre);
         void setApellidos(string _appellidos);
         void setAdress(string _direccion);
         void setPhone(string _telefono);
         void setSaldo(double _saldo);
+        void setCedula(int _cedula);
+        void setClave(int _clave);
         
         string getName();
         string getApellidos();
         string getAdress();
         string getPhone();
         double getSaldo();
+        int getCedula();
+        int getClave();
         
         bool saldoNegativo(double _retiro);
         void retirarDinero(double _retiro);

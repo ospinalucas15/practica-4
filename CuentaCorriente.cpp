@@ -1,105 +1,107 @@
 #include "CuentaCorriente.h"
-#include <string>
 #include <iostream>
+#include <string>
 
 using namespace std;
 
-CuentaCorriente::CuentaCorriente(){
-    //Constructor by default
-
+CuentaCorriente::CuentaCorriente() {
+    // Constructor por defecto
     nombre = "John";
     apellidos = "Doe Quintero";
     direccion = "Calle 48A #50-42 Piso 2";
     telefono = "546 55 48";
+    cedula = 123456789;
+    clave = 4321;
     saldo = 1500000.0;
 }
 
-CuentaCorriente::CuentaCorriente(string nom, string apll, string dir, string tel, double sald){
-    //Parametrized constructor
-
+CuentaCorriente::CuentaCorriente(string nom, string apll, string dir, string tel, int ced, int clv, double sald) {
+    // Constructor parametrizado
     nombre = nom;
     apellidos = apll;
     direccion = dir;
     telefono = tel;
+    cedula = ced;
+    clave = clv;
     saldo = sald;
 }
 
-void CuentaCorriente::setName(string _nombre){
-
+void CuentaCorriente::setName(string _nombre) {
     nombre = _nombre;
 }
 
-void CuentaCorriente::setApellidos(string _apellidos){
-
+void CuentaCorriente::setApellidos(string _apellidos) {
     apellidos = _apellidos;
 }
 
-void CuentaCorriente::setAdress(string _direccion){
-
+void CuentaCorriente::setAdress(string _direccion) {
     direccion = _direccion;
 }
 
-void CuentaCorriente::setPhone(string _telefono){
-
+void CuentaCorriente::setPhone(string _telefono) {
     telefono = _telefono;
 }
 
-void CuentaCorriente::setSaldo(double _saldo){
-
+void CuentaCorriente::setSaldo(double _saldo) {
     saldo = _saldo;
 }
 
-string CuentaCorriente::getName(){
-
-    return nombre; 
+void CuentaCorriente::setCedula(int _cedula) {
+    cedula = _cedula;
 }
 
-string CuentaCorriente::getApellidos(){
-    
+void CuentaCorriente::setClave(int _clave) {
+    clave = _clave;
+}
+
+string CuentaCorriente::getName() {
+    return nombre;
+}
+
+string CuentaCorriente::getApellidos() {
     return apellidos;
 }
 
-string CuentaCorriente::getAdress(){
-
+string CuentaCorriente::getAdress() {
     return direccion;
 }
 
-string CuentaCorriente::getPhone(){
-
+string CuentaCorriente::getPhone() {
     return telefono;
 }
 
-double CuentaCorriente::getSaldo(){
-
+double CuentaCorriente::getSaldo() {
     return saldo;
 }
 
+int CuentaCorriente::getCedula() {
+    return cedula;
+}
 
-bool CuentaCorriente::saldoNegativo(double _retiro){
+int CuentaCorriente::getClave() {
+    return clave;
+}
 
-    if ((saldo - _retiro) < 0){
-        return 1;
-    }
-    else {
-        return 0;
+bool CuentaCorriente::saldoNegativo(double _retiro) {
+    return (saldo - _retiro) < 0;
+}
+
+void CuentaCorriente::retirarDinero(double _retiro) {
+    if (!saldoNegativo(_retiro)) {
+        saldo -= _retiro;
+    } else {
+        cout << "No se puede retirar, saldo insuficiente." << endl;
     }
 }
 
-void CuentaCorriente::retirarDinero(double _retiro){
-
-    saldo -= _retiro;
-}
-
-void CuentaCorriente::ingresarDinero(double _abono){
-
+void CuentaCorriente::ingresarDinero(double _abono) {
     saldo += _abono;
 }
 
-void CuentaCorriente::consultarCuenta(){
-
+void CuentaCorriente::consultarCuenta() {
     cout << "Nombre: " << nombre << endl;
     cout << "Apellidos: " << apellidos << endl;
     cout << "Direccion: " << direccion << endl;
     cout << "Telefono: " << telefono << endl;
-    cout << "Saldo: " << saldo << endl; 
+    cout << "Cedula: " << cedula;
 }

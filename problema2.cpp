@@ -1,55 +1,54 @@
 #include <iostream>
 #include <limits>
+#include <set>
 #include "CuentaCorriente.h"
 
 using namespace std;
 
-void problema2(){
-
+void problema2() { 
     int opcion;
     bool flag = true;
+    set<int> cedulasRegistradas;
 
-    CuentaCorriente *cuenta = new CuentaCorriente();
-
-    string nombre;
-    string apellidos;
-    string direccion;
-    string telefono;
+    CuentaCorriente *cuenta = nullptr;
+    string nombre, apellidos, direccion, telefono;
     int cedula, clave;
     double saldo, retiro, abono;
 
-
     cout << "-----------------------" << endl;
-    cout << "|Menu                  |" << endl;
-    cout << "|1. Crear cuenta       |" << endl;
-    cout << "|2. Ingresar datos     |" << endl;
+    cout << "| Menu                |" << endl;
+    cout << "| 1. Crear cuenta     |" << endl;
+    cout << "| 2. Ingresar datos   |" << endl;
     cout << "-----------------------" << endl;
-
     cin >> opcion;
 
-    if (opcion == 1){
-
-        CuentaCorriente *cuenta = new CuentaCorriente(); //Se crea objeto global 'cuenta' con by default constructor
-    }
-    else {
-        
+    if (opcion == 1) {
+        cuenta = new CuentaCorriente();  // Se crea objeto cuenta con el constructor por defecto
+    } else {
         cout << "Ingrese el nombre: ";
         cin >> nombre;
         cout << "Ingrese el apellido: ";
         cin >> apellidos;
-        cout << "Ingrese la direccion: ";
+        cout << "Ingrese la dirección: ";
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        getline(std::cin, direccion);
-        cout << "Ingrese el telefono: ";
+        getline(cin, direccion);
+        cout << "Ingrese el teléfono: ";
         cin >> telefono;
+        cout << "Ingrese la cédula: ";
+        cin >> cedula;
+        cout << "Ingrese la clave: ";
+        cin >> clave;
         cout << "Ingrese el saldo: ";
         cin >> saldo;
 
-        delete cuenta;
+        if (cedulasRegistradas.find(cedula) != cedulasRegistradas.end()) {
+            cout << "Error: Una cuenta con esta cédula ya existe." << endl;
+            return; // Salir de la función si la cédula ya está registrada
+        }
 
-        CuentaCorriente *cuenta = new CuentaCorriente(nombre, apellidos, direccion, telefono, saldo);
-        //Se crea objeto 'cuenta' con constructor parametrizado
-
+        delete cuenta; // Liberar memoria si ya había una cuenta creada
+        cuenta = new CuentaCorriente(nombre, apellidos, direccion, telefono, cedula, clave, saldo);
+        cedulasRegistradas.insert(cedula);  // Agregar la cédula al set de cédulas registradas
     }
 
     while (flag == true) {
@@ -62,8 +61,10 @@ void problema2(){
         cout << "|4. Modificar apellido          |" << endl;
         cout << "|5. Modificar direccion         |" << endl;
         cout << "|6. Modificar telefono          |" << endl;
-        cout << "|7. Consultar cuenta            |" << endl;
-        cout << "|8. Salir                       |" << endl;
+        cout << "|7. Modificar cedula            |" << endl;
+        cout << "|8. Modificar clave             |" << endl;
+        cout << "|9. Consultar cuenta            |" << endl;
+        cout << "|10. Salir                      |" << endl;
         cout << "---------------------------------" << endl;
 
         cin >> opcion;
@@ -137,11 +138,23 @@ void problema2(){
 
                 break;
             case 7:
+                cout << "Ingrese la nueva cédula: ";
+                cin >> cedula;
+                if (cedulasRegistradas.find(cedula) != cedulasRegistradas.end()) {
+                    cout << "Error: Una cuenta con esta cédula ya existe." << endl;
+                } else {
+                    cedulasRegistradas.erase(cuenta->getCedula()); // Remover la cédula antigua del set
+                    cuenta->setCedula(cedula); // Actualizar la cédula en la cuenta
+                    cedulasRegistradas.insert(cedula); // Agregar la nueva cédula al set
+                    cout << "Cédula actualizada correctamente." << endl;
+                }              
+            case 8:
 
                 cout << "Datos de la cuenta" << endl;
 
                 cuenta->consultarCuenta();
                 break;
+
             default:
 
                 flag = false;

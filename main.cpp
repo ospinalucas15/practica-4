@@ -24,7 +24,7 @@ int main()
             problema1();
             break;
         case 2:
-            // problema2();
+            problema2();
             break;
         default: 
             // problema3();

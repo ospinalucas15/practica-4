@@ -344,13 +344,13 @@ void problema1(){
                         //mostrar recibo
                         cout << "----------Carrito-----------" << endl;
 
-                        for (size_t i = 0; i < cantidades.size(); ++i){
-                            cout << carritoString[i] << cantidades[i] << " * " << carritoString[i] << endl;
-                        }
+                        // for (size_t i = 0; i < carritoString.size(); ++i){
+                        //     cout << carritoString[i] << cantidades[i] << " * " << carritoString[i] << endl;
+                        // }
 
-                        for (size_t i = 0; i < carritoInt.size(); ++i){
-                            cout << carritoInt[i] << cantidades[i + ] 
-                        }
+                        // for (size_t i = 0; i < carritoInt.size(); ++i){
+                        //     cout << carritoInt[i] << cantidades 
+                        // }
                         for (auto& obj : carritoString) {
 
                             cout << obj.getNombre() << "  Precio final: " << obj.ajusteDescuento() << endl;

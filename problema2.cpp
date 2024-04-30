@@ -10,6 +10,7 @@ void problema2() {
     int opcion;
     bool flag1 = true;
     bool flag2 = true;
+    int count = 0;
 
     vector<CuentaCorriente> cuentas;
 
@@ -184,7 +185,7 @@ void problema2() {
                 cout << "Ingrese la cedula: " << endl;
                 cin >> cedula;
                 
-                int count = 0;
+                count = 0;
 
                 for (auto& cuenta : cuentas){
                     if (cuenta.getCedula() == cedula){
@@ -208,6 +209,7 @@ void problema2() {
                 cout << "Datos de la cuenta" << endl;
 
                 cuenta->consultarCuenta();
+                cout << endl;
                 break;
             default:
 

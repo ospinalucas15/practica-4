@@ -5,6 +5,7 @@ CONFIG -= qt
 
 SOURCES += \
         main.cpp \
+        CuentaCorriente.cpp \
         problema1.cpp \
         problema2.cpp
 

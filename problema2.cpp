@@ -54,7 +54,7 @@ void problema2() {
                 }
             }
             if (count == cuentas.size()){
-                flag1 == false;
+                flag1 = false;
             }
         }
 
@@ -181,7 +181,25 @@ void problema2() {
             
             case 8:
 
-                cout << "Datos de la cuenta" << endl;
+                cout << "Ingrese la cedula: " << endl;
+                cin >> cedula;
+                
+                int count = 0;
+
+                for (auto& cuenta : cuentas){
+                    if (cuenta.getCedula() == cedula){
+                        cout << "Ingrese la nueva clave: ";
+                        cin >> clave;
+
+                        cuenta.setClave(clave);
+                        
+                        ++count;
+                    }
+                }
+                
+                if (count != 0){
+                    cout << "La cedula no existe" << endl;
+                }
 
                 cuenta->consultarCuenta();
                 break;

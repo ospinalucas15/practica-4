@@ -1,14 +1,17 @@
 #include <iostream>
 #include <limits>
-#include <set>
+#include <vector>
 #include "CuentaCorriente.h"
 
 using namespace std;
 
 void problema2() { 
+
     int opcion;
-    bool flag = true;
-    set<int> cedulasRegistradas;
+    bool flag1 = true;
+    bool flag2 = true;
+
+    vector<CuentaCorriente> cuentas;
 
     CuentaCorriente *cuenta = nullptr;
     string nombre, apellidos, direccion, telefono;
@@ -34,24 +37,39 @@ void problema2() {
         getline(cin, direccion);
         cout << "Ingrese el teléfono: ";
         cin >> telefono;
-        cout << "Ingrese la cédula: ";
-        cin >> cedula;
+
+
+        while (flag1 == true) {
+
+            cout << "Ingrese la cédula: ";
+            cin >> cedula;
+            int count = 0;
+            for (auto& cuenta : cuentas){
+                if (cuenta.getCedula() == cedula){
+                    cout << "Esta cedula ya esta registrada" << endl;
+                    break;
+                }
+                else {
+                    ++count;
+                }
+            }
+            if (count == cuentas.size()){
+                flag1 == false;
+            }
+        }
+
+
         cout << "Ingrese la clave: ";
         cin >> clave;
         cout << "Ingrese el saldo: ";
         cin >> saldo;
 
-        if (cedulasRegistradas.find(cedula) != cedulasRegistradas.end()) {
-            cout << "Error: Una cuenta con esta cédula ya existe." << endl;
-            return; // Salir de la función si la cédula ya está registrada
-        }
 
         delete cuenta; // Liberar memoria si ya había una cuenta creada
         cuenta = new CuentaCorriente(nombre, apellidos, direccion, telefono, cedula, clave, saldo);
-        cedulasRegistradas.insert(cedula);  // Agregar la cédula al set de cédulas registradas
     }
 
-    while (flag == true) {
+    while (flag2 == true) {
 
         cout << "---------------------------------" << endl;
         cout << "|Menu                           |" << endl;
@@ -140,24 +158,42 @@ void problema2() {
             case 7:
                 cout << "Ingrese la nueva cédula: ";
                 cin >> cedula;
-                if (cedulasRegistradas.find(cedula) != cedulasRegistradas.end()) {
-                    cout << "Error: Una cuenta con esta cédula ya existe." << endl;
-                } else {
-                    cedulasRegistradas.erase(cuenta->getCedula()); // Remover la cédula antigua del set
-                    cuenta->setCedula(cedula); // Actualizar la cédula en la cuenta
-                    cedulasRegistradas.insert(cedula); // Agregar la nueva cédula al set
-                    cout << "Cédula actualizada correctamente." << endl;
-                }              
+                              
+                while (flag1 == true) {
+
+                    cout << "Ingrese la cédula: ";
+                    cin >> cedula;
+                    int count = 0;
+                    for (auto& cuenta : cuentas){
+                        if (cuenta.getCedula() == cedula){
+                            cout << "Esta cedula ya esta registrada" << endl;
+                            break;
+                        }
+                        else {
+                            ++count;
+                        }
+                    }
+                    if (count == cuentas.size()){
+                        flag1 = false;
+                    }
+                }
+                        break;
+            
             case 8:
 
                 cout << "Datos de la cuenta" << endl;
 
                 cuenta->consultarCuenta();
                 break;
+            case 9:
 
+                cout << "Datos de la cuenta" << endl;
+
+                cuenta->consultarCuenta();
+                break;
             default:
 
-                flag = false;
+                flag2 = false;
         } 
     }
 
